@@ -1,4 +1,5 @@
 import { User } from './user.model';
+import { Quiz } from './quiz.model';
 
 export interface Course {
   id: number;
