@@ -53,11 +53,11 @@ namespace ELearningAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             {
-                return Unauthorized("Invalid username or password");
+                return Unauthorized("Invalid email or password");
             }
 
             var token = GenerateJwtToken(user);
@@ -113,7 +113,7 @@ namespace ELearningAPI.Controllers
 
     public class LoginRequest
     {
-        public string Username { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }
 } 

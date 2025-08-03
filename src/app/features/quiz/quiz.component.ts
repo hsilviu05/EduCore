@@ -45,6 +45,38 @@ import { Quiz, Question, QuizAttempt, QuizResult } from '../../core/models/quiz.
 
       <!-- Quiz Content -->
       <div class="quiz-content">
+        <!-- Quiz Selection Interface -->
+        <div *ngIf="!currentQuiz && !isQuizActive" class="quiz-selection">
+          <div class="quiz-selection-header">
+            <h1>Available Quizzes</h1>
+            <p>Test your knowledge with these programming quizzes</p>
+          </div>
+          
+          <div class="quiz-grid">
+            <div 
+              *ngFor="let quiz of availableQuizzes" 
+              class="quiz-card"
+              (click)="previewQuiz(quiz.id)"
+            >
+              <div class="quiz-card-header">
+                <h3>{{ quiz.title }}</h3>
+                <span class="quiz-difficulty">Programming</span>
+              </div>
+              <div class="quiz-card-body">
+                <p>{{ quiz.description }}</p>
+                <div class="quiz-meta">
+                  <span class="quiz-time">⏱️ {{ quiz.timeLimit }} min</span>
+                  <span class="quiz-score">🎯 {{ quiz.passingScore }}% to pass</span>
+                  <span class="quiz-attempts">🔄 {{ quiz.maxAttempts }} attempts</span>
+                </div>
+              </div>
+              <div class="quiz-card-footer">
+                <button class="start-quiz-btn">Start Quiz</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Quiz Taking Interface -->
         <div *ngIf="isQuizActive && currentQuestion" class="question-container">
           <div class="question-header">
@@ -709,6 +741,110 @@ import { Quiz, Question, QuizAttempt, QuizResult } from '../../core/models/quiz.
       border: 2px solid #667eea;
     }
 
+    /* Quiz Selection Styles */
+    .quiz-selection {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .quiz-selection-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-selection-header h1 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+      font-size: 2.5rem;
+    }
+
+    .quiz-selection-header p {
+      margin: 0;
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .quiz-card {
+      background: white;
+      border: 1px solid #e1e5e9;
+      border-radius: 12px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .quiz-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-color: #667eea;
+    }
+
+    .quiz-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-card-header h3 {
+      margin: 0;
+      color: #333;
+      font-size: 1.25rem;
+    }
+
+    .quiz-difficulty {
+      background: #667eea;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .quiz-card-body p {
+      margin: 0 0 1rem 0;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .quiz-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+      color: #666;
+      flex-wrap: wrap;
+    }
+
+    .quiz-time, .quiz-score, .quiz-attempts {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .quiz-card-footer {
+      text-align: center;
+    }
+
+    .start-quiz-btn {
+      background: #667eea;
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .start-quiz-btn:hover {
+      background: #5a6fd8;
+      transform: translateY(-1px);
+    }
+
     @media (max-width: 768px) {
       .quiz-container {
         padding: 1rem;
@@ -775,18 +911,80 @@ export class QuizComponent implements OnInit {
   }
 
   loadAvailableQuizzes(): void {
-    // Load quizzes for the current course
-    const courseId = this.route.snapshot.params['courseId'];
-    if (courseId) {
-      this.quizService.getCourseQuizzes(courseId).subscribe({
-        next: (quizzes) => {
-          this.availableQuizzes = quizzes;
-        },
-        error: (error) => {
-          console.error('Error loading quizzes:', error);
-        }
-      });
-    }
+    // Load all available quizzes
+    this.quizService.getAllQuizzes().subscribe({
+      next: (quizzes) => {
+        this.availableQuizzes = quizzes;
+        console.log('Loaded quizzes:', quizzes);
+      },
+      error: (error) => {
+        console.error('Error loading quizzes:', error);
+        // Fallback: load from a mock service or show demo quizzes
+        this.loadDemoQuizzes();
+      }
+    });
+  }
+
+  loadDemoQuizzes(): void {
+    // Demo quizzes for testing
+    this.availableQuizzes = [
+      {
+        id: 1,
+        title: 'JavaScript Fundamentals',
+        description: 'Test your knowledge of JavaScript basics including variables, functions, and control structures.',
+        courseId: 1,
+        timeLimit: 30,
+        passingScore: 70,
+        maxAttempts: 3,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        questions: [],
+        attempts: []
+      },
+      {
+        id: 2,
+        title: 'Python Basics',
+        description: 'Test your understanding of Python fundamentals including syntax, data structures, and basic operations.',
+        courseId: 1,
+        timeLimit: 25,
+        passingScore: 75,
+        maxAttempts: 3,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        questions: [],
+        attempts: []
+      },
+      {
+        id: 3,
+        title: 'Web Development Fundamentals',
+        description: 'Test your knowledge of HTML, CSS, and basic web development concepts.',
+        courseId: 1,
+        timeLimit: 20,
+        passingScore: 70,
+        maxAttempts: 3,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        questions: [],
+        attempts: []
+      },
+      {
+        id: 4,
+        title: 'Database Fundamentals',
+        description: 'Test your understanding of database concepts, SQL basics, and data modeling.',
+        courseId: 1,
+        timeLimit: 30,
+        passingScore: 75,
+        maxAttempts: 3,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        questions: [],
+        attempts: []
+      }
+    ];
   }
 
   loadQuiz(quizId: number): void {

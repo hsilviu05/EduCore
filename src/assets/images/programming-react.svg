@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#61dafb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00bcd4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="code" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#333333;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="150" fill="url(#bg)" rx="8"/>
+  
+  <!-- Code blocks -->
+  <g fill="url(#code)" opacity="0.9">
+    <!-- Component -->
+    <rect x="20" y="20" width="90" height="8" rx="2"/>
+    <rect x="20" y="35" width="70" height="6" rx="2"/>
+    <rect x="20" y="45" width="50" height="6" rx="2"/>
+    
+    <!-- Hook -->
+    <rect x="130" y="20" width="80" height="8" rx="2"/>
+    <rect x="130" y="35" width="60" height="6" rx="2"/>
+    
+    <!-- JSX -->
+    <rect x="230" y="20" width="60" height="8" rx="2"/>
+    <rect x="230" y="35" width="40" height="6" rx="2"/>
+    
+    <!-- State -->
+    <rect x="20" y="70" width="100" height="8" rx="2"/>
+    <rect x="20" y="85" width="80" height="6" rx="2"/>
+    
+    <!-- Props -->
+    <rect x="140" y="70" width="90" height="8" rx="2"/>
+    <rect x="140" y="85" width="70" height="6" rx="2"/>
+    
+    <!-- Event -->
+    <rect x="250" y="70" width="40" height="8" rx="2"/>
+    
+    <!-- Return -->
+    <rect x="20" y="110" width="110" height="8" rx="2"/>
+    <rect x="20" y="125" width="90" height="6" rx="2"/>
+    
+    <!-- Export -->
+    <rect x="150" y="110" width="100" height="8" rx="2"/>
+    <rect x="150" y="125" width="80" height="6" rx="2"/>
+  </g>
+  
+  <!-- React Logo -->
+  <text x="250" y="140" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#000000">⚛</text>
+</svg> 

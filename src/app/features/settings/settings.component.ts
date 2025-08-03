@@ -67,7 +67,7 @@ import { NotificationSettings, PrivacySettings } from '../../core/models/user.mo
             <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
               <div class="avatar-section">
                 <div class="avatar-container">
-                  <img [src]="userAvatar || 'https://via.placeholder.com/100x100'" [alt]="currentUser?.firstName">
+                  <img [src]="userAvatar || '/assets/images/placeholder-100x100.svg'" [alt]="currentUser?.firstName">
                   <button type="button" class="avatar-upload-btn" (click)="uploadAvatar()">
                     📷 Upload Photo
                   </button>

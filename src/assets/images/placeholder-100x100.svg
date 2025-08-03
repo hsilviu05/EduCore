@@ -1,0 +1,7 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#1e293b"/>
+  <circle cx="50" cy="35" r="15" fill="#60a5fa"/>
+  <text x="50" y="40" font-family="monospace" font-size="12" text-anchor="middle" fill="#1e293b">👤</text>
+  <text x="50" y="65" font-family="monospace" font-size="8" text-anchor="middle" fill="#94a3b8">Developer</text>
+  <text x="50" y="80" font-family="monospace" font-size="8" text-anchor="middle" fill="#94a3b8">Avatar</text>
+</svg> 
